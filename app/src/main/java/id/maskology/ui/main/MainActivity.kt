@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import id.maskology.R
 import id.maskology.databinding.ActivityMainBinding
 import id.maskology.ui.camera.CameraActivity
@@ -18,6 +19,7 @@ import id.maskology.ui.main.fragment.EducationFragment
 import id.maskology.ui.main.fragment.FavoriteFragment
 import id.maskology.ui.main.fragment.HomeFragment
 import id.maskology.ui.main.fragment.ProfileFragment
+import id.maskology.utils.NetworkCheck
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
 //        if (!allPermissionsGranted()) {
 //            ActivityCompat.requestPermissions(
 //                this,
@@ -52,7 +55,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        binding.fabCamera.setOnClickListener { toCameraActivity() }
+        binding.fabCamera.setOnClickListener {
+            if (isConnect) {
+                toCameraActivity()
+            } else {
+                showAlertConnectionProblem()
+            }
+        }
     }
 
     private fun testActivity() {
@@ -100,6 +109,16 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_favorite -> setFragment(favoriteFragment)
             R.id.nav_profile -> setFragment(profileFragment)
         }
+    }
+
+    private fun showAlertConnectionProblem(){
+        MaterialAlertDialogBuilder(this@MainActivity)
+            .setTitle(resources.getString(R.string.title_no_connection_alert))
+            .setMessage(resources.getString(R.string.no_connection_alert))
+            .setPositiveButton(resources.getString(R.string.title_btn_alert_neutral)){_,_ ->
+                //Do nothing
+            }
+            .show()
     }
 
 

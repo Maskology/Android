@@ -16,6 +16,7 @@ import id.maskology.data.model.Store
 import id.maskology.databinding.ActivityDetailEcommerceBinding
 import id.maskology.ui.LoadingStateAdapter
 import id.maskology.ui.ViewModelFactory
+import id.maskology.ui.detailEcommerce.adapter.ListProductEcommerceAdapter
 import id.maskology.ui.detailEcommerce.viewmodel.DetailEcommerceViewModel
 import id.maskology.ui.detailProduct.viewmodel.DetailProductViewModel
 import id.maskology.ui.main.adapter.ListProductAdapter
@@ -46,7 +47,7 @@ class DetailEcommerceActivity : AppCompatActivity() {
     }
 
     private fun setListProductStore() {
-        val listAdapter = ListProductAdapter()
+        val listAdapter = ListProductEcommerceAdapter()
         binding.rvProduct.apply {
             layoutManager = GridLayoutManager(this@DetailEcommerceActivity, 2)
             setHasFixedSize(true)
@@ -93,20 +94,9 @@ class DetailEcommerceActivity : AppCompatActivity() {
 
     private fun contactStore(contact: String) {
         val url = "https://api.whatsapp.com/send?phone=$contact"
-        try {
-            val packageManager: PackageManager = this.packageManager
-            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)
-        } catch (e: PackageManager.NameNotFoundException) {
-            Toast.makeText(
-                this@DetailEcommerceActivity,
-                "Whatsapp app not installed in your phone",
-                Toast.LENGTH_SHORT
-            ).show()
-            e.printStackTrace()
-        }
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 
     private fun getDataStore() {

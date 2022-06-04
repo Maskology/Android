@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import id.maskology.ui.main.MainActivity
 import id.maskology.ui.onboarding.OnBoardingActivity
 import id.maskology.ui.onboarding.viewmodel.OnBoardingViewModel
 import id.maskology.ui.splashscreen.viewmodel.SplashscreenViewModel
+import id.maskology.utils.NetworkCheck
 import kotlin.system.exitProcess
 
 class SplashscreenActivity : AppCompatActivity() {
@@ -36,6 +38,14 @@ class SplashscreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         setViewModel()
         auth = Firebase.auth
+        checkInternet()
+    }
+
+    private fun checkInternet() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(this@SplashscreenActivity, resources.getString(R.string.text_toast_connection_alert), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setViewModel() {

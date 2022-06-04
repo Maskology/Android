@@ -34,6 +34,9 @@ data class Product(
     @field:SerializedName("imageUrl")
     val imageUrl: String,
 
+    @field:SerializedName("storeName")
+    val storeName: String,
+
     @field:SerializedName("createdAt")
     val createdAt: String,
 

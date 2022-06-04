@@ -1,4 +1,4 @@
-package id.maskology.ui.main.adapter
+package id.maskology.ui.detailEcommerce.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -19,10 +19,10 @@ import id.maskology.databinding.ItemSmallProductBinding
 import id.maskology.ui.detailProduct.DetailProductActivity
 import id.maskology.utils.CurrencyFormatter
 
-class ListProductAdapter :
-    PagingDataAdapter<Product, ListProductAdapter.ListViewHolder>(DIFF_CALLBACK)
+class ListProductEcommerceAdapter :
+    PagingDataAdapter<Product, ListProductEcommerceAdapter.ListViewHolder>(DIFF_CALLBACK)
 {
-    override fun onBindViewHolder(holder: ListProductAdapter.ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListProductEcommerceAdapter.ListViewHolder, position: Int) {
         val product = getItem(position)
         if (product  != null){
             holder.bind(product)
@@ -32,7 +32,7 @@ class ListProductAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ListProductAdapter.ListViewHolder {
+    ): ListProductEcommerceAdapter.ListViewHolder {
         val binding = ItemLargeProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }

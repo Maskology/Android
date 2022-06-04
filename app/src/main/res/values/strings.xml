@@ -62,4 +62,9 @@
     <string name="all_category">All Mask</string>
     <string name="sign_in_google">Sign in with Google</string>
     <string name="sign_in_as_guest">Sign in as Guest Account</string>
+    <string name="no_connection_alert">Connection Failed, some functions of the application may be interrupted due to a lost connection</string>
+    <string name="text_toast_connection_alert">Connection Failed, some functions of the application may be interrupted due to a lost connection, you must be turn on your connection once for better experience.</string>
+    <string name="title_no_connection_alert">Connection Problem</string>
+    <string name="title_btn_alert_neutral">Oke</string>
+    <string name="text_keep_login">Keep login as Guest</string>
 </resources>

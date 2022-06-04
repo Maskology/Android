@@ -25,7 +25,7 @@
             android:id="@+id/view_01"
             motion:layout_constraintEnd_toEndOf="@+id/img_01"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_01"
             android:alpha="0"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -116,7 +116,7 @@
                 motion:customFloatValue="1" />
         </Constraint>
         <Constraint
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintStart_toStartOf="@+id/img_01"
             motion:layout_constraintBottom_toBottomOf="@+id/img_01"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -163,7 +163,7 @@
             android:id="@+id/view_02"
             motion:layout_constraintEnd_toEndOf="@+id/img_02"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_02"
             android:alpha="1"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -200,7 +200,7 @@
             android:id="@+id/view_03"
             motion:layout_constraintEnd_toEndOf="@+id/img_03"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_03"
             android:alpha="1"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -226,17 +226,6 @@
             android:alpha="0"
             android:layout_marginStart="24dp"
             motion:layout_constraintStart_toStartOf="@+id/img_03" />
-        <Constraint
-            android:id="@+id/btn_contact"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintBottom_toTopOf="@+id/dot_02"
-            android:alpha="0" />
     </ConstraintSet>
     <ConstraintSet
         android:id="@+id/onboarding2"
@@ -270,7 +259,7 @@
             android:id="@+id/view_01"
             motion:layout_constraintEnd_toEndOf="@+id/img_01"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_01"
             android:alpha="0"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -290,7 +279,7 @@
             android:id="@+id/view_02"
             motion:layout_constraintEnd_toEndOf="@+id/img_02"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_02"
             android:alpha="1"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -375,7 +364,7 @@
             android:id="@+id/view_02"
             motion:layout_constraintEnd_toEndOf="@+id/img_02"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_02"
             android:alpha="1"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -413,7 +402,7 @@
             android:id="@+id/view_03"
             motion:layout_constraintEnd_toEndOf="@+id/img_03"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             motion:layout_constraintBottom_toBottomOf="@+id/img_03"
             android:alpha="1"
             motion:layout_constraintHorizontal_bias="0.0"
@@ -479,23 +468,23 @@
         </Constraint>
         <Constraint
             android:id="@+id/btn_login"
+            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintBottom_toTopOf="@+id/dot_02"
-            android:layout_marginEnd="8dp"
-            android:alpha="1"
+            android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toStartOf="@id/btn_login_guest" />
+            android:layout_marginBottom="4dp"
+            motion:layout_constraintBottom_toTopOf="@id/btn_login_guest"
+            android:alpha="1" />
         <Constraint
             android:id="@+id/btn_login_guest"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:layout_marginStart="8dp"
-            motion:layout_constraintStart_toEndOf="@id/btn_login"
+            android:layout_marginStart="24dp"
+            motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="16dp"
             motion:layout_constraintBottom_toTopOf="@+id/dot_02"
             android:alpha="1" />

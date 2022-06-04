@@ -50,7 +50,7 @@ class ListProductStoreAdapter :
                     .into(imgProduct)
                 tvProductName.text = product.name
                 tvProductPrice.text = CurrencyFormatter.rupiahFormatter(Integer.valueOf(product.price))
-                tvStoreName.text = "Maskology"
+                tvStoreName.text = product.storeName
 
                 root.setOnClickListener {
                     val intent = Intent(itemView.context, DetailProductActivity::class.java)

@@ -1,7 +1,6 @@
 package id.maskology.ui.detailProduct
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -20,7 +19,6 @@ import id.maskology.databinding.ActivityDetailProductBinding
 import id.maskology.ui.ViewModelFactory
 import id.maskology.ui.detailEcommerce.DetailEcommerceActivity
 import id.maskology.ui.detailProduct.viewmodel.DetailProductViewModel
-import id.maskology.ui.main.MainActivity
 import id.maskology.utils.CurrencyFormatter
 
 
@@ -109,20 +107,9 @@ class DetailProductActivity : AppCompatActivity() {
 
     private fun contactStore(contact: String) {
         val url = "https://api.whatsapp.com/send?phone=$contact"
-        try {
-            val packageManager: PackageManager = this.packageManager
-            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)
-        } catch (e: PackageManager.NameNotFoundException) {
-            Toast.makeText(
-                this@DetailProductActivity,
-                "Whatsapp app not installed in your phone",
-                Toast.LENGTH_SHORT
-            ).show()
-            e.printStackTrace()
-        }
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 
     private fun getDataStore() {
