@@ -11,6 +11,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.util.Rational
+import android.util.Size
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -20,10 +23,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -57,6 +57,7 @@ class CameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setToolbar()
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -80,6 +81,15 @@ class CameraActivity : AppCompatActivity() {
             btnGalery.setOnClickListener {
                 startGallery()
             }
+        }
+    }
+
+    private fun setToolbar() {
+        setSupportActionBar(binding.customCameraToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        binding.customCameraToolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -161,12 +171,15 @@ class CameraActivity : AppCompatActivity() {
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
             val preview = Preview.Builder()
+                .setTargetResolution(Size(224, 224))
                 .build()
                 .also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
 
-            imageCapture = ImageCapture.Builder().build()
+            imageCapture = ImageCapture.Builder()
+                .setTargetResolution(Size(224, 224))
+                .build()
 
             try {
                 cameraProvider.unbindAll()
@@ -298,11 +311,6 @@ class CameraActivity : AppCompatActivity() {
         }
         Yesbutton.setOnClickListener {
             builder.dismiss()
-            binding.layoutToolCamera.apply {
-                btnShutter.isEnabled = false
-                btnFlipCamera.isEnabled = false
-                btnGalery.isEnabled = false
-            }
             uploadImage()
         }
         builder.setCanceledOnTouchOutside(false)
@@ -319,14 +327,23 @@ class CameraActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        supportActionBar?.hide()
     }
 
     private fun showLoading(state: Boolean) {
         if (state) {
             binding.progresbar.visibility = View.VISIBLE
+            binding.layoutToolCamera.apply {
+                btnShutter.isEnabled = false
+                btnFlipCamera.isEnabled = false
+                btnGalery.isEnabled = false
+            }
         } else {
             binding.progresbar.visibility = View.GONE
+            binding.layoutToolCamera.apply {
+                btnShutter.isEnabled = true
+                btnFlipCamera.isEnabled = true
+                btnGalery.isEnabled = true
+            }
         }
     }
 

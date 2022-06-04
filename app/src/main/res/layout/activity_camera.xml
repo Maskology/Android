@@ -12,17 +12,25 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:elevation="5dp"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
 
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:scaleType="fitCenter"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <include
         android:id="@+id/layout_tool_camera"
         layout="@layout/camera_tools_layout"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/customCameraToolbar"
+        style="@style/CustomToolbar"
+        android:background="@drawable/top_transparent_gradient_background"
+        app:navigationIcon="@drawable/ic_baseline_close"
+        android:elevation="8dp"/>
 
 </FrameLayout>
