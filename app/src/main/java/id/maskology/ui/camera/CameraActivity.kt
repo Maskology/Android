@@ -142,10 +142,11 @@ class CameraActivity : AppCompatActivity() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val isBackCamera = cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     getFile = photoFile
-                    result_img = rotateBitmap(
-                        BitmapFactory.decodeFile(photoFile.path),
-                        isBackCamera
-                    )
+//                    result_img = rotateBitmap(
+//                        BitmapFactory.decodeFile(photoFile.path),
+//                        isBackCamera
+//                    )
+                    result_img = BitmapFactory.decodeFile(photoFile.path)
                     DialogForm()
                 }
             }
@@ -296,6 +297,12 @@ class CameraActivity : AppCompatActivity() {
             builder.dismiss()
         }
         Yesbutton.setOnClickListener {
+            builder.dismiss()
+            binding.layoutToolCamera.apply {
+                btnShutter.isEnabled = false
+                btnFlipCamera.isEnabled = false
+                btnGalery.isEnabled = false
+            }
             uploadImage()
         }
         builder.setCanceledOnTouchOutside(false)
