@@ -1,5 +1,8 @@
 package id.maskology.ui.detailEcommerce
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -89,6 +92,7 @@ class DetailEcommerceActivity : AppCompatActivity() {
             tvPhoneNumber.text = store.contact
             tvDescription.text = store.desc
             btnContact.setOnClickListener { contactStore(store.contact) }
+            btnCopy.setOnClickListener { copyContact(store.contact) }
         }
     }
 
@@ -97,6 +101,18 @@ class DetailEcommerceActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         startActivity(intent)
+    }
+
+    private fun copyContact(contact: String) {
+        val clipboard: ClipboardManager =
+            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("contact", contact)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(
+            this@DetailEcommerceActivity,
+            resources.getString(R.string.text_copy_contact),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun getDataStore() {

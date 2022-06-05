@@ -35,16 +35,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val isConnect = NetworkCheck.connectionCheck(binding.root.context)
-//        if (!allPermissionsGranted()) {
-//            ActivityCompat.requestPermissions(
-//                this,
-//                REQUIRED_PERMISSIONS,
-//                REQUEST_CODE_PERMISSIONS
-//            )
-//        }
 
         setFragment(homeFragment)
-
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.nav_home -> setFragment(homeFragment)
@@ -64,9 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun testActivity() {
-        startActivity(Intent(this@MainActivity, DetailEcommerceActivity::class.java))
-    }
 
 
     private fun toCameraActivity() {
@@ -80,26 +69,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            if (!allPermissionsGranted()) {
-//                Toast.makeText(
-//                    this,
-//                    "Tidak mendapatkan permission.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                finish()
-//            }
-//        }
-//    }
-//    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-//        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
-//    }
 
     override fun onResume() {
         super.onResume()

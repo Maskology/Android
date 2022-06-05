@@ -1,5 +1,9 @@
 package id.maskology.ui.detailProduct
 
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -47,6 +51,7 @@ class DetailProductActivity : AppCompatActivity() {
             tvStoreName.visibility = View.INVISIBLE
             tvPhoneNumber.visibility = View.INVISIBLE
             btnContact.visibility = View.INVISIBLE
+            btnCopy.visibility = View.INVISIBLE
             tvErrorMessage.visibility = View.INVISIBLE
         }
     }
@@ -68,6 +73,7 @@ class DetailProductActivity : AppCompatActivity() {
                             tvStoreName.visibility = View.VISIBLE
                             tvPhoneNumber.visibility = View.VISIBLE
                             btnContact.visibility = View.VISIBLE
+                            btnCopy.visibility = View.VISIBLE
                         }
                         val store = result.data
                         setMiniProfileStore(store)
@@ -94,9 +100,22 @@ class DetailProductActivity : AppCompatActivity() {
             tvStoreName.text = store.name
             tvPhoneNumber.text = store.contact
             btnContact.setOnClickListener { contactStore(store.contact) }
+            btnCopy.setOnClickListener { copyContact(store.contact) }
             imgStore.setOnClickListener { toProfileStore(store) }
             tvStoreName.setOnClickListener { toProfileStore(store)  }
         }
+    }
+
+    private fun copyContact(contact: String) {
+        val clipboard: ClipboardManager =
+            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("contact", contact)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(
+            this@DetailProductActivity,
+            resources.getString(R.string.text_copy_contact),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun toProfileStore(store: Store) {
