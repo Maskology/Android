@@ -2,36 +2,37 @@ package id.maskology.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "store")
+@Entity(tableName = "productByStore")
 @Parcelize
-data class Store(
-
+data class ProductByStore (
     @PrimaryKey
     @field:SerializedName("id")
     val id: String,
 
+    @field:SerializedName("storeId")
+    val storeId: String,
+
+    @field:SerializedName("categoryId")
+    val categoryId: String,
+
     @field:SerializedName("name")
     val name: String,
 
-    @field:SerializedName("contact")
-    val contact: String,
+    @field:SerializedName("price")
+    val price: String,
+
+    @field:SerializedName("stock")
+    val stock: Int,
 
     @field:SerializedName("desc")
     val desc: String,
 
-    @field:SerializedName("email")
-    val email: String,
-
-    @field:SerializedName("profilePictureUrl")
-    val profilePictureUrl: String,
-
-    @field:SerializedName("backgroundUrl")
-    val backgroundPictureUrl: String,
+    @field:SerializedName("imageUrl")
+    val imageUrl: String,
 
     @field:SerializedName("createdAt")
     val createdAt: String,

@@ -68,4 +68,8 @@
     <string name="title_btn_alert_neutral">Oke</string>
     <string name="text_keep_login">Keep login as Guest</string>
     <string name="text_copy_contact">Phone number store has been copy to clipboard</string>
+    <string name="text_no_data_store_product">Store not have Product</string>
+    <string name="text_server_error_to_load_data">Store Product can\'t be show, connection failed</string>
+    <string name="text_no_connection_load_data">Some data may not be visible due to no internet connection. Please turn on internet connection for better experience</string>
+    <string name="text_no_data_product">No Data Product</string>
 </resources>

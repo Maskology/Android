@@ -6,10 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.paging.*
 import id.maskology.data.local.database.MaskologyDatabase
 import id.maskology.data.local.datastore.AuthPreferences
-import id.maskology.data.model.Category
-import id.maskology.data.model.CategoryProduct
-import id.maskology.data.model.Product
-import id.maskology.data.model.Store
+import id.maskology.data.model.*
 import id.maskology.data.remote.api.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +26,16 @@ class Repository(
             remoteMediator = ProductRemoteMediator(maskologyDatabase, apiService),
             pagingSourceFactory = {
                 maskologyDatabase.productDao().getAllProduct()
+            }
+        ).flow
+    }
+
+    fun getAllProductByCategory(category: String): Flow<PagingData<Product>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = {
+                ProductByCategoryPagingSource(apiService, category)
             }
         ).flow
     }
@@ -75,7 +82,7 @@ class Repository(
             emit(Result.Loading)
             try {
                 val response = apiService.getStore(id)
-                maskologyDatabase.storeDao().deleteAllStore()
+                maskologyDatabase.storeDao().deleteStore(id)
                 maskologyDatabase.storeDao().insertOneStore(response)
                 Log.d(TAG, "Get Store: ${response.id}")
             }catch (e: Exception) {
@@ -84,6 +91,23 @@ class Repository(
             }
             val store = maskologyDatabase.storeDao().getStore(id)
             emit(Result.Success(store))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getProductByStore(storeId: String): Flow<Result<List<ProductByStore>>>{
+        return flow {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getAllProductByStore(storeId)
+                maskologyDatabase.productByStoreDao().deleteAllProduct(storeId)
+                maskologyDatabase.productByStoreDao().insertProduct(response)
+                Log.d(TAG, "Get Store: $response")
+            }catch (e: Exception) {
+                emit(Result.Error("Store Product Not Found"))
+                Log.e(TAG, "Get Store Product: ${e.message.toString()}")
+            }
+            val listProductByStore = maskologyDatabase.productByStoreDao().getAllProductByStore(storeId)
+            emit(Result.Success(listProductByStore))
         }.flowOn(Dispatchers.IO)
     }
 

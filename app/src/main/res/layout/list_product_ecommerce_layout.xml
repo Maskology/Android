@@ -7,25 +7,37 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_category"
+        android:id="@+id/rv_store_product"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingHorizontal="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlSymmetry"
-        tools:listitem="@layout/item_category" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_related_product"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:paddingHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_category"
         tools:ignore="RtlSymmetry"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/item_large_product" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_message"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/request_timeout"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_store_product"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progresbar"
+        style="@style/Widget.AppCompat.ProgressBar.Content"
+        android:layout_gravity="center"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

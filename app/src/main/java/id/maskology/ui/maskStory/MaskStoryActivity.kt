@@ -2,6 +2,8 @@ package id.maskology.ui.maskStory
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -17,6 +19,7 @@ import id.maskology.ui.main.adapter.ListNewProductAdapter
 import id.maskology.ui.maskStory.adapter.ListRelatedProductAdapter
 import id.maskology.ui.maskStory.viewmodel.MaskStoryViewModel
 import id.maskology.utils.LocalDateConverter
+import id.maskology.utils.NetworkCheck
 
 class MaskStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMaskStoryBinding
@@ -29,9 +32,29 @@ class MaskStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         setViewModel()
         getDataCategory()
+        getDataProduct()
         setView()
         setToolbar()
         setListRelatedProduct()
+        setNoConnectionToast()
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(this@MaskStoryActivity, resources.getString(R.string.text_no_connection_load_data),Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getDataProduct() {
+        when (category.name){
+            "Topeng Barong" -> {maskStoryViewModel.getListProductByCategory("barong")}
+            "Topeng Bujuh" -> {maskStoryViewModel.getListProductByCategory("bujuh")}
+            "Topeng Dalem" -> {maskStoryViewModel.getListProductByCategory("dalem")}
+            "Topeng Keras" -> {maskStoryViewModel.getListProductByCategory("keras")}
+            "Topeng Sidakarya" -> {maskStoryViewModel.getListProductByCategory("sidakarya")}
+            "Topeng Tua" -> {maskStoryViewModel.getListProductByCategory("tua")}
+        }
     }
 
     private fun setListRelatedProduct() {
@@ -45,12 +68,6 @@ class MaskStoryActivity : AppCompatActivity() {
                 }
             )
         }
-
-        binding.descriptionStoryMaskLayout.rvRelatedProduct.adapter = listAdapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                listAdapter.retry()
-            }
-        )
 
         maskStoryViewModel.listProduct.observe(this@MaskStoryActivity){ listRelatedProduct ->
             listAdapter.submitData(lifecycle, listRelatedProduct)
@@ -86,5 +103,16 @@ class MaskStoryActivity : AppCompatActivity() {
 
     private fun getDataCategory() {
         category = intent.getParcelableExtra<Category>("category") as Category
+    }
+
+    private fun showErrorMessage(isError: Boolean, message: String){
+        binding.descriptionStoryMaskLayout.tvErrorMessage.apply {
+            if (isError) {
+                visibility = View.VISIBLE
+                text = message
+            } else {
+                visibility = View.GONE
+            }
+        }
     }
 }

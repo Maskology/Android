@@ -8,12 +8,16 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import id.maskology.R
+import id.maskology.data.Result
+import id.maskology.data.model.CategoryProduct
 import id.maskology.data.model.Product
 import id.maskology.data.model.Store
 import id.maskology.databinding.ActivityDetailEcommerceBinding
@@ -23,6 +27,7 @@ import id.maskology.ui.detailEcommerce.adapter.ListProductEcommerceAdapter
 import id.maskology.ui.detailEcommerce.viewmodel.DetailEcommerceViewModel
 import id.maskology.ui.detailProduct.viewmodel.DetailProductViewModel
 import id.maskology.ui.main.adapter.ListProductAdapter
+import id.maskology.utils.NetworkCheck
 
 class DetailEcommerceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEcommerceBinding
@@ -36,8 +41,22 @@ class DetailEcommerceActivity : AppCompatActivity() {
         setViewModel()
         setToolbar()
         getDataStore()
+        getDataStoreProduct()
         setView()
         setListProductStore()
+        setNoConnectionToast()
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(this@DetailEcommerceActivity, resources.getString(R.string.text_no_connection_load_data),Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun getDataStoreProduct() {
+        detailEcommerceViewModel.getListProductByStore(store.id)
     }
 
     private fun setToolbar() {
@@ -50,25 +69,42 @@ class DetailEcommerceActivity : AppCompatActivity() {
     }
 
     private fun setListProductStore() {
-        val listAdapter = ListProductEcommerceAdapter()
-        binding.rvProduct.apply {
-            layoutManager = GridLayoutManager(this@DetailEcommerceActivity, 2)
-            setHasFixedSize(true)
-            adapter = listAdapter.withLoadStateFooter(
-                footer = LoadingStateAdapter {
-                    listAdapter.retry()
+        detailEcommerceViewModel.listProductByStore.observe(this@DetailEcommerceActivity){ result ->
+            if (result != null) {
+                when(result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                        showErrorMessage(false, "")
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        val listProductStore = result.data
+                        if (listProductStore.size < 0){
+                            val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+                            if (isConnect) {
+                                showErrorMessage(true, resources.getString(R.string.text_no_data_store_product))
+                            } else {
+                                showErrorMessage(true, resources.getString(R.string.text_server_error_to_load_data))
+                            }
+                        } else {
+                            showErrorMessage(false, "")
+                            val listAdapter = ListProductEcommerceAdapter(listProductStore)
+
+                            binding.listStoreProductLayout.rvStoreProduct.apply {
+                                layoutManager = GridLayoutManager(this@DetailEcommerceActivity, 2)
+                                setHasFixedSize(true)
+                                adapter = listAdapter
+                            }
+                        }
+
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showErrorMessage(true, resources.getString(R.string.text_server_error_to_load_data))
+                    }
                 }
-            )
-        }
-
-        binding.rvProduct.adapter = listAdapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                listAdapter.retry()
             }
-        )
 
-        detailEcommerceViewModel.listProduct.observe(this@DetailEcommerceActivity){ listProduct->
-            listAdapter.submitData(lifecycle, listProduct)
         }
     }
 
@@ -122,5 +158,26 @@ class DetailEcommerceActivity : AppCompatActivity() {
     private fun setViewModel() {
         val factory = ViewModelFactory.getInstance(this@DetailEcommerceActivity.application)
         detailEcommerceViewModel = ViewModelProvider(this@DetailEcommerceActivity, factory)[DetailEcommerceViewModel::class.java]
+    }
+
+    private fun showLoading(isLoading: Boolean){
+        binding.listStoreProductLayout.progresbar.apply {
+            visibility = if (isLoading) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+    }
+
+    private fun showErrorMessage(isError: Boolean, message: String){
+        binding.listStoreProductLayout.tvErrorMessage.apply {
+            if (isError) {
+                visibility = View.VISIBLE
+                text = message
+            } else {
+                visibility = View.GONE
+            }
+        }
     }
 }

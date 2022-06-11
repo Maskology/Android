@@ -24,6 +24,7 @@ import id.maskology.ui.ViewModelFactory
 import id.maskology.ui.detailEcommerce.DetailEcommerceActivity
 import id.maskology.ui.detailProduct.viewmodel.DetailProductViewModel
 import id.maskology.utils.CurrencyFormatter
+import id.maskology.utils.NetworkCheck
 
 
 class DetailProductActivity : AppCompatActivity() {
@@ -43,6 +44,14 @@ class DetailProductActivity : AppCompatActivity() {
         setToolbar()
         getDataStore()
         setProfileStore()
+        setNoConnectionToast()
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(this@DetailProductActivity, resources.getString(R.string.text_no_connection_load_data),Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setEmptyStoreProfile() {

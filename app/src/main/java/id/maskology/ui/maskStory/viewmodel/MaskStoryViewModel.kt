@@ -16,13 +16,10 @@ class MaskStoryViewModel(private val repository: Repository) : ViewModel() {
     private val _listProduct = MutableLiveData<PagingData<Product>>()
     val listProduct: LiveData<PagingData<Product>> = _listProduct
 
-    init {
-        getListProduct()
-    }
-
-    private fun getListProduct() = viewModelScope.launch {
-        repository.getAllProduct().cachedIn(viewModelScope).collect { values ->
+    fun getListProductByCategory(category: String)  = viewModelScope.launch {
+        repository.getAllProductByCategory(category).cachedIn(viewModelScope).collect { values ->
             _listProduct.value = values
         }
     }
+
 }

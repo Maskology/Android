@@ -3,6 +3,7 @@ package id.maskology.ui.main.fragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.maskology.R
@@ -13,6 +14,7 @@ import id.maskology.ui.ViewModelFactory
 import id.maskology.ui.main.adapter.ListCategoryEducationAdapter
 import id.maskology.ui.main.adapter.ListFunFactAdapter
 import id.maskology.ui.main.viewmodel.EducationViewModel
+import id.maskology.utils.NetworkCheck
 
 class EducationFragment : Fragment(R.layout.fragment_education) {
 
@@ -26,6 +28,15 @@ class EducationFragment : Fragment(R.layout.fragment_education) {
         setViewModel()
         setListCategory()
         setListFunFact()
+        setNoConnectionToast()
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(requireContext(), resources.getString(R.string.text_no_connection_load_data),
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setListFunFact() {

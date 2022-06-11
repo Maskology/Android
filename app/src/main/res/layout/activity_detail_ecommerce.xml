@@ -17,15 +17,9 @@
         android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="8dp"
-            android:clipToPadding="false"
-            tools:ignore="RtlSymmetry"
-            tools:listitem="@layout/item_large_product"
-            android:scrollbars="vertical"/>
+        <include
+            android:id="@+id/list_store_product_layout"
+            layout="@layout/list_product_ecommerce_layout"/>
 
     </androidx.core.widget.NestedScrollView>
 

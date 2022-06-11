@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -18,6 +19,7 @@ import id.maskology.databinding.FragmentProfileBinding
 import id.maskology.ui.ViewModelFactory
 import id.maskology.ui.main.viewmodel.ProfileViewModel
 import id.maskology.ui.onboarding.OnBoardingActivity
+import id.maskology.utils.NetworkCheck
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -31,7 +33,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileBinding.bind(view)
         setViewModel()
-
+        setNoConnectionToast()
         auth = Firebase.auth
 
         firebaseUser = auth.currentUser
@@ -39,6 +41,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             setGuestView()
         } else {
             setFirebaseUserView()
+        }
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(requireContext(), resources.getString(R.string.text_no_connection_load_data),
+                Toast.LENGTH_SHORT).show()
         }
     }
 

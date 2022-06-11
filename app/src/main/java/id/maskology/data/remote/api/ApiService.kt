@@ -2,6 +2,7 @@ package id.maskology.data.remote.api
 
 import id.maskology.data.model.Category
 import id.maskology.data.model.Product
+import id.maskology.data.model.ProductByStore
 import id.maskology.data.model.Store
 import id.maskology.data.remote.response.*
 import okhttp3.MultipartBody
@@ -33,6 +34,18 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("limit") size: Int
     ) : ProductResponse
+
+    @GET("products")
+    suspend fun getAllProductByCategory(
+        @Query("page") page: Int,
+        @Query("limit") size: Int,
+        @Query("category") category: String,
+    ) : ProductResponse
+
+    @GET("stores/{id}/product")
+    suspend fun getAllProductByStore(
+        @Path("id") id: String
+    ) : List<ProductByStore>
 
     @GET("categories/{id}")
     suspend fun getCategory(

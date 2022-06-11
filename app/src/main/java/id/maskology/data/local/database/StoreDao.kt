@@ -21,6 +21,6 @@ interface StoreDao {
     @Query("SELECT * FROM store WHERE id=:id")
     fun getStore(id: String): Store
 
-    @Query("DELETE FROM store")
-    suspend fun deleteAllStore()
+    @Query("DELETE FROM store WHERE id=:id")
+    suspend fun deleteStore(id: String)
 }

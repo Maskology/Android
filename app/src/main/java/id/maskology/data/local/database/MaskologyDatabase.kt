@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import id.maskology.data.model.Category
-import id.maskology.data.model.CategoryProduct
-import id.maskology.data.model.Product
-import id.maskology.data.model.Store
+import id.maskology.data.model.*
 
 @Database(
     entities = [
@@ -17,7 +14,8 @@ import id.maskology.data.model.Store
         Product::class,
         StoreRemoteKeys::class,
         ProductRemoteKeys::class,
-        CategoryRemoteKeys::class
+        CategoryRemoteKeys::class,
+        ProductByStore::class
     ],
     version = 1,
     exportSchema = false
@@ -31,6 +29,7 @@ abstract class MaskologyDatabase : RoomDatabase() {
     abstract fun productRemoteKeysDao(): ProductRemoteKeysDao
     abstract fun storeRemoteKeysDao(): StoreRemoteKeysDao
     abstract fun categoryRemoteKeysDao(): CategoryRemoteKeysDao
+    abstract fun productByStoreDao(): ProductByStoreDao
 
     companion object {
         @Volatile

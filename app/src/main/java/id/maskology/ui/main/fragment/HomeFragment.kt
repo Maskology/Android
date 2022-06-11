@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,7 @@ import id.maskology.ui.LoadingStateAdapter
 import id.maskology.ui.ViewModelFactory
 import id.maskology.ui.main.adapter.*
 import id.maskology.ui.main.viewmodel.HomeViewModel
+import id.maskology.utils.NetworkCheck
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -44,6 +46,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setListNewProducts()
         getDataListCategory()
         setListProduct()
+        setNoConnectionToast()
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(requireContext(), resources.getString(R.string.text_no_connection_load_data),
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setListProduct() {

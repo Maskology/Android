@@ -32,6 +32,7 @@ import id.maskology.data.remote.api.ApiConfig
 import id.maskology.data.remote.response.PredictResponse
 import id.maskology.databinding.ActivityCameraBinding
 import id.maskology.ui.maskStory.MaskStoryActivity
+import id.maskology.utils.NetworkCheck
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -58,6 +59,7 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setToolbar()
+        setNoConnectionToast()
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -81,6 +83,13 @@ class CameraActivity : AppCompatActivity() {
             btnGalery.setOnClickListener {
                 startGallery()
             }
+        }
+    }
+
+    private fun setNoConnectionToast() {
+        val isConnect = NetworkCheck.connectionCheck(binding.root.context)
+        if (!isConnect) {
+            Toast.makeText(this@CameraActivity, resources.getString(R.string.text_no_connection_load_data),Toast.LENGTH_SHORT).show()
         }
     }
 

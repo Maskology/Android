@@ -40,7 +40,7 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/drawable/under_development_illustration.xml" value="0.194" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_camera.xml" value="0.22" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_detail_ecommerce.xml" value="0.3625" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_detail_ecommerce.xml" value="0.18023715415019761" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_detail_product.xml" value="0.25" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/activity_home2.xml" value="0.33" />
@@ -76,7 +76,8 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/header_story_mask_layout.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_banner.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_category.xml" value="0.5" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_large_product.xml" value="0.45454545454545453" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_large_product.xml" value="0.16371681415929204" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_large_product_ecommerce.xml" value="0.25" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_loading.xml" value="0.25" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_mask_story.xml" value="0.3625" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_news.xml" value="0.5" />
@@ -85,6 +86,7 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/item_small_product.xml" value="0.33" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/list_product_ecommerce_layout.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/list_product_layout.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/list_store_product_layout.xml" value="0.2375" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/mini_profile_layout.xml" value="0.5" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/mini_store_profile_layout.xml" value="0.435361216730038" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/Maskology/app/src/main/res/layout/test.xml" value="0.1" />
