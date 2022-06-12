@@ -105,14 +105,4 @@ class MaskStoryActivity : AppCompatActivity() {
         category = intent.getParcelableExtra<Category>("category") as Category
     }
 
-    private fun showErrorMessage(isError: Boolean, message: String){
-        binding.descriptionStoryMaskLayout.tvErrorMessage.apply {
-            if (isError) {
-                visibility = View.VISIBLE
-                text = message
-            } else {
-                visibility = View.GONE
-            }
-        }
-    }
 }
